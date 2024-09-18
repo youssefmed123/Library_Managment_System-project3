@@ -2,13 +2,14 @@
 
 namespace ConsoleApp6
 {
-    //Class Book
+    // Class Book
     public class Book
     {
         public string Title;
         public string Author;
         public string ISBN;
         public bool Availability;
+
         public Book(string _Title, string _Author, string _ISBN)
         {
             this.Title = _Title;
@@ -17,17 +18,19 @@ namespace ConsoleApp6
             this.Availability = true;
         }
     }
-    //class library
+
+    // Class Library
     public class Library
     {
         List<Book> books = new List<Book>();
 
-        //adding a book 
-        public void Addbook(Book book)
+        // Adding a book 
+        public void AddBook(Book book)
         {
             books.Add(book);
         }
-        //search for a book 
+
+        // Search for a book using a for loop
         public Book SearchBook(string searchTerm)
         {
             for (int i = 0; i < books.Count; i++)
@@ -40,7 +43,7 @@ namespace ConsoleApp6
             }
             return null;
         }
-        //Borrowing a book
+        // Borrowing a book
         public void BorrowBook(string title)
         {
             Book book = SearchBook(title);
@@ -49,19 +52,20 @@ namespace ConsoleApp6
                 if (book.Availability)
                 {
                     book.Availability = false;
-                    Console.WriteLine($"You have borrowed {book.Title}");
+                    Console.WriteLine($"You have borrowed '{book.Title}'");
                 }
                 else
                 {
-                    Console.WriteLine($"Sorry, {book.Title} is already borrowed");
+                    Console.WriteLine($"Sorry, '{book.Title}' is already borrowed");
                 }
             }
             else
             {
-                Console.WriteLine($"Sorry, {title} is not available in the library");
+                Console.WriteLine($"Sorry, '{title}' is not available in the library");
             }
         }
-        //Return book
+
+        // Return book
         public void ReturnBook(string title)
         {
             Book book = SearchBook(title);
@@ -70,19 +74,20 @@ namespace ConsoleApp6
                 if (!book.Availability)
                 {
                     book.Availability = true;
-                    Console.WriteLine($"You have returned {book.Title}");
+                    Console.WriteLine($"You have returned '{book.Title}'");
                 }
                 else
                 {
-                    Console.WriteLine($"{book.Title} was not borrowed");
+                    Console.WriteLine($"'{book.Title}' was not borrowed");
                 }
             }
             else
             {
-                Console.WriteLine($"Sorry, {title} is not available in the library");
+                Console.WriteLine($"Sorry, '{title}' is not available in the library");
             }
         }
     }
+
     internal class Program
     {
         static void Main(string[] args)
@@ -90,23 +95,22 @@ namespace ConsoleApp6
             Library library = new Library();
 
             // Adding books to the library
-            library.Addbook(new Book("The Great Gatsby", "F. Scott Fitzgerald", "9780743273565"));
-            library.Addbook(new Book("To Kill a Mockingbird", "Harper Lee", "9780061120084"));
-            library.Addbook(new Book("1984", "George Orwell", "9780451524935"));
+            library.AddBook(new Book("The Great Gatsby", "F. Scott Fitzgerald", "9780743273565"));
+            library.AddBook(new Book("To Kill a Mockingbird", "Harper Lee", "9780061120084"));
+            library.AddBook(new Book("1984", "George Orwell", "9780451524935"));
 
             // Searching and borrowing books
             Console.WriteLine("Searching and borrowing books...");
-            library.BorrowBook("Gatsby");
+            library.BorrowBook("The Great Gatsby");
             library.BorrowBook("1984");
             library.BorrowBook("Harry Potter"); // This book is not in the library
 
             // Returning books
             Console.WriteLine("\nReturning books...");
-            library.ReturnBook("Gatsby");
+            library.ReturnBook("The Great Gatsby");
             library.ReturnBook("Harry Potter"); // This book is not borrowed
 
             Console.ReadLine();
         }
     }
 }
-
